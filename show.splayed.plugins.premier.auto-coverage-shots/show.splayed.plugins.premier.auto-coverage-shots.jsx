@@ -25,7 +25,7 @@ $._ext = {
 
         //There is an issue stringifying these arrays... convert them to objects
         seq.audioTracksByName = this.indexTracks(seq.audioTracks);
-        seq.videoTracksByName = this.indexTracks(seq.audioTracks);
+        seq.videoTracksByName = this.indexTracks(seq.videoTracks);
 
         //This function goes in and out of process and so the result has to be serialized
         return JSON.stringify(seq);
@@ -45,7 +45,7 @@ $._ext = {
 
     indexClips: function(clipsPseudoArray) {
 
-        clipsByName = {};
+        clipsByName = {"test-clip": clipsPseudoArray.numItems};
         for(clipIdx=0;clipIdx<clipsPseudoArray.numItems;clipIdx++) {
             var name = clipsPseudoArray[clipIdx].name;
             clipsByName[name] = clipsPseudoArray[clipIdx];

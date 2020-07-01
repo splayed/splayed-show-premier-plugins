@@ -107,7 +107,7 @@ function runScript(evnt) {
 
         var videoTracks = activeSequence.videoTracks;
 
-        $.each(audioTracksByName, (key, value) => {
+        $.each(audioTracks, (key, value) => {
             console.log(key + ":"  + value);
         });
 

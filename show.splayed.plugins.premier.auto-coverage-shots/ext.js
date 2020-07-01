@@ -13,6 +13,9 @@ function onLoaded () {
     $("#speakersSubmit").on("enter", runScript);
 
 	$("#speakersSubmit").on("submit", runScript);
+
+
+	loadJSX();
 }
 
 
@@ -92,18 +95,46 @@ function runScript(evnt) {
 
     } );
 
-    app.enableQE(); // "Enables Premiere Pro’s QE DOM." https://premiere-scripting-guide.readthedocs.io/2%20-%20App%20object/application.html
-    var activeSequence = qe.project.getActiveSequence();
+    var csInterface = new CSInterface();
 
-    var audioTracks = activeSequence.getAudioTracks();
+    //This function goes in and out of process and so the result has to be serialized on the other end
+    //and deserialized here.
+    csInterface.evalScript("$._ext.getActiveSequence()", (seq) => {
 
-    var videoTracks = activeSequence.getVideoTracks();
+        var activeSequence = JSON.parse(seq);
 
-    $.each(audioTracks, (key, value) => {
-        console.log("key": key);
-        console.log("value": value);
+        var audioTracks = activeSequence.audioTracksByName;
+
+        var videoTracks = activeSequence.videoTracks;
+
+        $.each(audioTracksByName, (key, value) => {
+            console.log(key + ":"  + value);
+        });
+
     });
+
+
 
 
 }
 
+
+/**
+* Load JSX file into the scripting context of the product. All the jsx files in
+* folder [ExtensionRoot]/jsx & [ExtensionRoot]/jsx/[AppName] will be loaded.
+*/
+function loadJSX() {
+	var csInterface = new CSInterface();
+
+	// get the appName of the currently used app. For Premiere Pro it's "PPRO"
+	var appName = csInterface.hostEnvironment.appName;
+	var extensionPath = csInterface.getSystemPath(SystemPath.EXTENSION);
+
+	// load general JSX script independent of appName
+	var extensionRootGeneral = extensionPath + "/jsx/";
+	csInterface.evalScript("$._ext.evalFiles(\"" + extensionRootGeneral + "\")");
+
+	// load JSX scripts based on appName
+	var extensionRootApp = extensionPath + "/jsx/" + appName + "/";
+	csInterface.evalScript("$._ext.evalFiles(\"" + extensionRootApp + "\")");
+}

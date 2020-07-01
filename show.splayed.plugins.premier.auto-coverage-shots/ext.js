@@ -16,6 +16,8 @@ function onLoaded () {
 
 
 	loadJSX();
+
+
 }
 
 
@@ -41,10 +43,10 @@ function refreshSpeakerConfigurationCards(evnt) {
         $("#" + cardId).html("<div class=\"mat-card speaker-card\">"
 
 + "<p>Speaker At : " + speakerIdx + "</p>"
-+ "<div><label>Select Mono Audio Track:</label><input type=\"select\" class=\"audio-track\" /></div>"
++ "<div><label>Select Mono Audio Track:</label><select class=\"audio-track\" /></div>"
 + "<div><label>Specify Name</label><input type=\"text\" class=\"name\" value=\"Adam\" /></div>"
 + "<div><label>Specify Cover Speaker Level Threshold</label><input type=\"number\" class=\"level-threshold\" max=\"100\" min=\"0\" value=\"50\" /></div>"
-+ "<div><label>Select Target Video Track For Pan & Scan</label><input type=\"select\" class=\"video-track\" /></div>"
++ "<div><label>Select Target Video Track For Pan & Scan</label><select class=\"video-track\" /></div>"
 + "<div><label>Enter Coverage Zoom</label><input type=\"number\" class=\"zoom\" min=\"0\" value=\"200\" /></div>"
 + "<div><label>Enter Coverage Pan Anchor Left</label><input type=\"number\" class=\"pan-to\" value=\"540\"  /></div>"
 + "<div><label>Enter Coverage Scan Anchor Top</label><input type=\"number\" class=\"scan-to\" value=\"1819\" /></div>"
@@ -54,6 +56,33 @@ function refreshSpeakerConfigurationCards(evnt) {
 
    }
 
+      var csInterface = new CSInterface();
+
+        //This function goes in and out of process and so the result has to be serialized on the other end
+        //and deserialized here.
+        csInterface.evalScript("$._ext.getActiveSequence()", (seq) => {
+
+            var autoCoverageActiveSequence = JSON.parse(seq);
+
+
+            var audioTracksByNameSelects = "";
+            $.each(activeSequence.audioTracksByName, (name, v) => {
+
+                audioTracksByNameSelects = audioTracksByNameSelects + "<option name=\""+name+"\" value=\""+name+"\">"+name+"</option>";
+            });"
+
+            $("#speakerCards").find("select.audio-track").html(audioTracksByNameSelects);
+            
+            
+             var videoTracksByNameSelects = "";
+            $.each(activeSequence.videoTracksByName, (name, v) => {
+
+                videoTracksByNameSelects = videoTracksByNameSelects + "<option name=\""+name+"\" value=\""+name+"\">"+name+"</option>";
+            });"
+
+            $("#speakerCards").find("select.video-track").html(videoTracksByNameSelects);
+
+        });
 
 
 }
@@ -95,23 +124,7 @@ function runScript(evnt) {
 
     } );
 
-    var csInterface = new CSInterface();
 
-    //This function goes in and out of process and so the result has to be serialized on the other end
-    //and deserialized here.
-    csInterface.evalScript("$._ext.getActiveSequence()", (seq) => {
-
-        var activeSequence = JSON.parse(seq);
-
-        var audioTracks = activeSequence.audioTracksByName;
-
-        var videoTracks = activeSequence.videoTracks;
-
-        $.each(audioTracks, (key, value) => {
-            console.log(key + ":"  + value);
-        });
-
-    });
 
 
 

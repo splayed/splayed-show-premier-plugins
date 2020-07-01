@@ -59,7 +59,7 @@ function runScript() {
         var audioTrack = $(card).$(".audio-track").val()
         speakerConfigs[audioTrack] = {
             audioTrack: audioTrack,
-            name: $(card).$(".name").val();,
+            name: $(card).$(".name").val(),
             levelThreshold: $(card).$(".level-threshold").val(),
             videoTrack: $(card).$(".video-track").val(),
             zoom: $(card).$(".zoom").val(),

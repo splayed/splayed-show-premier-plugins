@@ -22,9 +22,9 @@
 
   <div>
 
-    <form>
+    <form id="speakersForm">
 
-      <label>Enter number of Speakers</label><input type="number" onblur="refreshSpeakerConfigurationCards(this)" >
+      <label>Enter number of Speakers</label><input id="numSpeakers" type="number"  >
 
       <div class="mat-card" id="speakerCards">
 
@@ -32,7 +32,7 @@
       </div>
 
 
-      <input type="submit" onsubmit="runScript()" />
+      <input id="speakersSubmit" type="submit" />
 
 
 

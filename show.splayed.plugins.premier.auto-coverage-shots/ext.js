@@ -1,12 +1,27 @@
 function onLoaded () {
 
-	
+	$("#numSpeakers").on("blur", refreshSpeakerConfigurationCards);
+
+	$("#numSpeakers").on("enter", refreshSpeakerConfigurationCards);
+
+	$("#numSpeakers").on("submit", refreshSpeakerConfigurationCards);
+
+	$("#speakersSubmit").on("submit", runScript);
+
+	$("#speakersSubmit").on("enter", runScript);
+
+	$("#speakersSubmit").on("click", runScript);
+
+
 }
 
 
 
 
-function refreshSpeakerConfigurationCards(sender) {
+function refreshSpeakerConfigurationCards(evnt) {
+
+   evnt.preventDefault();
+   var sender = evnt.target;
 //    $("#transcodeexternal")
    var numSpeakers = Number($(sender).val());
 
@@ -45,7 +60,10 @@ function resetSpeakerConfigs() {
 
 }
 
-function runScript() {
+function runScript(evnt) {
+
+   evnt.preventDefault();
+   var sender = evnt.target;
 
     var speakerConfigs = [];
     $(".speaker-card").each( function (index, card) {

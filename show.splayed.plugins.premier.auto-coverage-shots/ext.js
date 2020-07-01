@@ -92,5 +92,18 @@ function runScript(evnt) {
 
     } );
 
+    app.enableQE(); // "Enables Premiere Pro’s QE DOM." https://premiere-scripting-guide.readthedocs.io/2%20-%20App%20object/application.html
+    var activeSequence = qe.project.getActiveSequence();
+
+    var audioTracks = activeSequence.getAudioTracks();
+
+    var videoTracks = activeSequence.getVideoTracks();
+
+    $.each(audioTracks, (key, value) => {
+        console.log("key": key);
+        console.log("value": value);
+    });
+
+
 }
 

@@ -24,8 +24,8 @@ $._ext = {
 
 
         //There is an issue stringifying these arrays... convert them to objects
-        seq.audioTracksByName = indexTracks(seq.audioTracks);
-        seq.videoTracksByName = indexTracks(seq.audioTracks);
+        seq.audioTracksByName = this.indexTracks(seq.audioTracks);
+        seq.videoTracksByName = this.indexTracks(seq.audioTracks);
 
         //This function goes in and out of process and so the result has to be serialized
         return JSON.stringify(seq);
@@ -37,7 +37,7 @@ $._ext = {
         for(trackIdx=0;trackIdx<tracksPseudoArray.numTracks;trackIdx++) {
             var name = tracksPseudoArray[trackIdx].name;
             tracksByName[name] = tracksPseudoArray[trackIdx];
-            tracksByName[name].clipsByName = indexClips(tracksByName[name]);
+            tracksByName[name].clipsByName = this.indexClips(tracksByName[name]);
         }
         return tracksByName;
 
@@ -49,7 +49,7 @@ $._ext = {
         for(clipIdx=0;clipIdx<clipsPseudoArray.numItems;clipIdx++) {
             var name = clipsPseudoArray[clipIdx].name;
             clipsByName[name] = clipsPseudoArray[clipIdx];
-            clipsByName[name].componentsByName = indexComponents(clipsByName[name]);
+            clipsByName[name].componentsByName = this.indexComponents(clipsByName[name]);
         }
         return clipsByName;
 
@@ -61,7 +61,7 @@ $._ext = {
         for(componentIdx=0;componentIdx<componentsPseudoArray.numComponents;componentIdx++) {
             var name = componentsPseudoArray[componentIdx].name;
             componentsByName[name] = componentsPseudoArray[componentIdx];
-            componentsByName[name].propertiesByName = indexProperties(componentsByName[name]);
+            componentsByName[name].propertiesByName = this.indexProperties(componentsByName[name]);
         }
         return componentsByName;
 

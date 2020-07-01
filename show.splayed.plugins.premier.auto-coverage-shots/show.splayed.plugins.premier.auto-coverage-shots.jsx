@@ -34,10 +34,12 @@ $._ext = {
     indexTracks: function(tracksPseudoArray) {
 
         tracksByName = {};
-        for(trackIdx=0;trackIdx<tracksPseudoArray.numTracks;trackIdx++) {
-            var name = tracksPseudoArray[trackIdx].name;
-            tracksByName[name] = tracksPseudoArray[trackIdx];
-            tracksByName[name].clipsByName = this.indexClips(tracksByName[name]);
+        if(tracksPseudoArray) {
+            for(trackIdx=0;trackIdx<tracksPseudoArray.numTracks;trackIdx++) {
+                var name = tracksPseudoArray[trackIdx].name;
+                tracksByName[name] = tracksPseudoArray[trackIdx];
+                tracksByName[name].clipsByName = this.indexClips(tracksByName[name].clips);
+            }
         }
         return tracksByName;
 
@@ -45,11 +47,13 @@ $._ext = {
 
     indexClips: function(clipsPseudoArray) {
 
-        clipsByName = {"test-clip": clipsPseudoArray.numItems};
-        for(clipIdx=0;clipIdx<clipsPseudoArray.numItems;clipIdx++) {
-            var name = clipsPseudoArray[clipIdx].name;
-            clipsByName[name] = clipsPseudoArray[clipIdx];
-            clipsByName[name].componentsByName = this.indexComponents(clipsByName[name]);
+        clipsByName = {};
+        if(clipsPseudoArray) {
+            for(clipIdx=0;clipIdx<clipsPseudoArray.numItems;clipIdx++) {
+                var name = clipsPseudoArray[clipIdx].name;
+                clipsByName[name] = clipsPseudoArray[clipIdx];
+                clipsByName[name].componentsByName = this.indexComponents(clipsByName[name].components);
+            }
         }
         return clipsByName;
 
@@ -58,10 +62,12 @@ $._ext = {
     indexComponents: function(componentsPseudoArray) {
 
         componentsByName = {};
-        for(componentIdx=0;componentIdx<componentsPseudoArray.numComponents;componentIdx++) {
-            var name = componentsPseudoArray[componentIdx].name;
-            componentsByName[name] = componentsPseudoArray[componentIdx];
-            componentsByName[name].propertiesByName = this.indexProperties(componentsByName[name]);
+        if(componentsPseudoArray) {
+            for(componentIdx=0;componentIdx<componentsPseudoArray.numComponents;componentIdx++) {
+                var name = componentsPseudoArray[componentIdx].name;
+                componentsByName[name] = componentsPseudoArray[componentIdx];
+                componentsByName[name].propertiesByName = this.indexProperties(componentsByName[name].properties);
+            }
         }
         return componentsByName;
 
@@ -70,9 +76,11 @@ $._ext = {
     indexProperties: function(propertiesPseudoArray) {
 
         propertiesByName = {};
-        for(propertyIdx=0;propertyIdx<propertiesPseudoArray.numproperties;propertyIdx++) {
-            var name = propertiesPseudoArray[propertyIdx].name;
-            propertiesByName[name] = propertiesPseudoArray[propertyIdx];
+        if(propertiesPseudoArray) {
+            for(propertyIdx=0;propertyIdx<propertiesPseudoArray.numproperties;propertyIdx++) {
+                var name = propertiesPseudoArray[propertyIdx].name;
+                propertiesByName[name] = propertiesPseudoArray[propertyIdx];
+            }
         }
         return propertiesByName;
 

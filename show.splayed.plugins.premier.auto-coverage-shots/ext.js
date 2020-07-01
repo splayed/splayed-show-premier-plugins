@@ -1,18 +1,18 @@
 function onLoaded () {
 
-	$("#numSpeakers").on("blur", refreshSpeakerConfigurationCards);
+    $("#speakersForm").on("submit", refreshSpeakerConfigurationCards);
 
-	$("#numSpeakers").on("enter", refreshSpeakerConfigurationCards);
+//    $("#numSpeakers").on("blur", refreshSpeakerConfigurationCards);
 
-	$("#numSpeakers").on("submit", refreshSpeakerConfigurationCards);
+    $("#numSpeakers").on("enter", refreshSpeakerConfigurationCards);
 
-	$("#speakersSubmit").on("submit", runScript);
 
-	$("#speakersSubmit").on("enter", runScript);
 
 	$("#speakersSubmit").on("click", runScript);
 
+    $("#speakersSubmit").on("enter", runScript);
 
+	$("#speakersSubmit").on("submit", runScript);
 }
 
 
@@ -21,9 +21,11 @@ function onLoaded () {
 function refreshSpeakerConfigurationCards(evnt) {
 
    evnt.preventDefault();
-   var sender = evnt.target;
-//    $("#transcodeexternal")
-   var numSpeakers = Number($(sender).val());
+
+   var numSpeakers = Number($("#numSpeakers").val());
+
+
+   resetSpeakerConfigs();
 
 
     // TODO: list all available mono tracks form sdk. If less than numSpeakers are available, then print a warning rather than iterating over speakers.
@@ -37,12 +39,12 @@ function refreshSpeakerConfigurationCards(evnt) {
 
 + "<p>Speaker At : " + speakerIdx + "</p>"
 + "<div><label>Select Mono Audio Track:</label><input type=\"select\" class=\"audio-track\" /></div>"
-+ "<div><label>Specify Name</label><input type=\"text\" class=\"name\" /></div>"
-+ "<div><label>Specify Cover Speaker Level Threshold</label><input type=\"number\" class=\"level-threshold\" max=\"100\" min=\"0\" /></div>"
++ "<div><label>Specify Name</label><input type=\"text\" class=\"name\" value=\"Adam\" /></div>"
++ "<div><label>Specify Cover Speaker Level Threshold</label><input type=\"number\" class=\"level-threshold\" max=\"100\" min=\"0\" value=\"50\" /></div>"
 + "<div><label>Select Target Video Track For Pan & Scan</label><input type=\"select\" class=\"video-track\" /></div>"
-+ "<div><label>Enter Coverage Zoom</label><input type=\"number\" class=\"zoom\" min=\"0\" /></div>"
-+ "<div><label>Enter Coverage Pan Anchor Left</label><input type=\"number\" class=\"pan-to\" /></div>"
-+ "<div><label>Enter Coverage Scan Anchor Top</label><input type=\"number\" class=\"scan-to\" /></div>"
++ "<div><label>Enter Coverage Zoom</label><input type=\"number\" class=\"zoom\" min=\"0\" value=\"200\" /></div>"
++ "<div><label>Enter Coverage Pan Anchor Left</label><input type=\"number\" class=\"pan-to\" value=\"540\"  /></div>"
++ "<div><label>Enter Coverage Scan Anchor Top</label><input type=\"number\" class=\"scan-to\" value=\"1819\" /></div>"
 
 
         + "</div>")
@@ -74,15 +76,15 @@ function runScript(evnt) {
         //and if that threshold is exceeded we run the pan, scan and zoom to. And if this hits for multiple
         //tracks then the result is undefined. Last one processed wins.
         //which is good enough for now. i can clean it up in  post.
-        var audioTrack = $(card).children(".audio-track").val()
+        var audioTrack = $(card).find(".audio-track").val()
         speakerConfigs[audioTrack] = {
             audioTrack: audioTrack,
-            name: $(card).children(".name").val(),
-            levelThreshold: $(card).children(".level-threshold").val(),
-            videoTrack: $(card).children(".video-track").val(),
-            zoom: $(card).children(".zoom").val(),
-            panTo: $(card).children(".pan-to").val(),
-            scanTo: $(card).children(".scan-to").val()
+            name: $(card).find(".name").val(),
+            levelThreshold: $(card).find(".level-threshold").val(),
+            videoTrack: $(card).find(".video-track").val(),
+            zoom: $(card).find(".zoom").val(),
+            panTo: $(card).find(".pan-to").val(),
+            scanTo: $(card).find(".scan-to").val()
         };
 
         //console.log(audioTrack);

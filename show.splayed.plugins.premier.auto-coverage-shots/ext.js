@@ -85,6 +85,8 @@ function runScript(evnt) {
             scanTo: $(card).children(".scan-to").val()
         };
 
+        //console.log(audioTrack);
+
 
     } );
 

@@ -64,7 +64,7 @@ $._ext = {
         componentsByName = {};
         if(componentsPseudoArray) {
             for(componentIdx=0;componentIdx<componentsPseudoArray.numItems;componentIdx++) {
-                var name = componentsPseudoArray[componentIdx].name;
+                var name = componentsPseudoArray[componentIdx].matchName;
                 componentsByName[name] = componentsPseudoArray[componentIdx];
                 componentsByName[name].propertiesByName = this.indexProperties(componentsByName[name].properties);
             }
@@ -78,7 +78,7 @@ $._ext = {
         propertiesByName = {};
         if(propertiesPseudoArray) {
             for(propertyIdx=0;propertyIdx<propertiesPseudoArray.numItems;propertyIdx++) {
-                var name = propertiesPseudoArray[propertyIdx].name;
+                var name = propertiesPseudoArray[propertyIdx].displayName;
                 propertiesByName[name] = propertiesPseudoArray[propertyIdx];
             }
         }

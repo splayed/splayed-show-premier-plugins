@@ -74,15 +74,15 @@ function runScript(evnt) {
         //and if that threshold is exceeded we run the pan, scan and zoom to. And if this hits for multiple
         //tracks then the result is undefined. Last one processed wins.
         //which is good enough for now. i can clean it up in  post.
-        var audioTrack = $(card).$(".audio-track").val()
+        var audioTrack = $(card).children(".audio-track").val()
         speakerConfigs[audioTrack] = {
             audioTrack: audioTrack,
-            name: $(card).$(".name").val(),
-            levelThreshold: $(card).$(".level-threshold").val(),
-            videoTrack: $(card).$(".video-track").val(),
-            zoom: $(card).$(".zoom").val(),
-            panTo: $(card).$(".pan-to").val(),
-            scanTo: $(card).$(".scan-to").val()
+            name: $(card).children(".name").val(),
+            levelThreshold: $(card).children(".level-threshold").val(),
+            videoTrack: $(card).children(".video-track").val(),
+            zoom: $(card).children(".zoom").val(),
+            panTo: $(card).children(".pan-to").val(),
+            scanTo: $(card).children(".scan-to").val()
         };
 
 

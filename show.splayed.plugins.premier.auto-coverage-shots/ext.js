@@ -69,7 +69,7 @@ function refreshSpeakerConfigurationCards(evnt) {
             $.each(activeSequence.audioTracksByName, (name, v) => {
 
                 audioTracksByNameSelects = audioTracksByNameSelects + "<option name=\""+name+"\" value=\""+name+"\">"+name+"</option>";
-            });"
+            });
 
             $("#speakerCards").find("select.audio-track").html(audioTracksByNameSelects);
             
@@ -78,7 +78,7 @@ function refreshSpeakerConfigurationCards(evnt) {
             $.each(activeSequence.videoTracksByName, (name, v) => {
 
                 videoTracksByNameSelects = videoTracksByNameSelects + "<option name=\""+name+"\" value=\""+name+"\">"+name+"</option>";
-            });"
+            });
 
             $("#speakerCards").find("select.video-track").html(videoTracksByNameSelects);
 

@@ -62,7 +62,7 @@ function refreshSpeakerConfigurationCards(evnt) {
         //and deserialized here.
         csInterface.evalScript("$._ext.getActiveSequence()", (seq) => {
 
-            var autoCoverageActiveSequence = JSON.parse(seq);
+            var activeSequence = JSON.parse(seq);
 
 
             var audioTracksByNameSelects = "";
